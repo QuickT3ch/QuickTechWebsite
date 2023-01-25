@@ -9,48 +9,47 @@ function App() {
     
     {/* navBar */}
     <div>
-    <p className='text-center p-3 text-[#FBF9FD] font-[VarelaRound]  w-[124px] h-[24px] text-[20px] leading-6'>
-        QUICKTECH
-    </p> 
+    <img src="assets/TitleLogo.svg" alt="" srcset="" />
     </div>
 
-    {/* 3d model */}
+    {/* 3d model  and description*/}
     <div className='absolute m-auto left-0 right-0 bottom-0 top-0 '>
     
-    <div className='flex flex-col content-center  h-screen w-full'>
-    <div className='h-3/6 w-screen '>
-    <Canvas>
-    <pointLight castShadow intensity={5} position={[1, 20, 1]} />
-    <Logo3D />
-    <ambientLight shadow={true}/>
-    </Canvas>
-    </div>
-    <div className='h-3/6  w-screen flex justify-center '>
-    <p className='w-36 text-3xl text-[#FBF9FD] font-[VarelaRound] capitalize'>
-    Every thing is easy and fast with 
-    <br /> 
-    <span className='text-[#8C1C3B]'> quick teck </span>
-    </p>
-    </div>
-    </div>
+    <div className='flex flex-col content-center h-screen w-full'>
+    <div className='h-1/4 pt-52  w-screen flex justify-center items-center '>
+        <p className='text-center w-3/4 text-3xl text-[#FBF9FD] font-[VarelaRound] capitalize'>
+        Every thing is easy and fast with 
+          <br /> 
+        <span className='text-[#8C1C3B]'> quick teck </span>
+        </p>
+      </div>
+      <div className='h-2/4 w-screen '>
+        <Canvas>
+        <pointLight castShadow intensity={5} position={[1, 20, 1]} />
+        <Logo3D />
+        <ambientLight shadow={true}/>
+        </Canvas>
+      </div>
+      
     </div>
    
-
-    {/* bottom left discription */}
-    <div className='absolute bottom-10 left-5 flex flex-col items-center'>
-      <p className='text-[#FBF9FD] text-[16px] font-[VarelaRound]'>
+    </div>
+   
+    {/* button navigation */}
+    <div className='absolute flex flex-col-reverse w-screen items-center bottom-16 gap-10'>
+    <div className='flex flex-col items-center'>
+      <p className='text-[#FBF9FD] text-[32px] font-[VarelaRound]'>
         1/4
        </p>
-       <p className='text-[#FBF9FD] text-[10px] font-[VarelaRound] w-28 text-center'>
+       <p className='text-[#FBF9FD] text-[16px] font-[VarelaRound] w-3/4 text-center'>
        simple discreption 
         about the page 
-       </p> 
+       </p>
     </div>
-
-    {/* bottom right discription */}
-    <div className='absolute bottom-10 right-5 flex items-center justify-between w-32'>
-      <img src="assets/inactiveLeftButton.svg" alt="LeftButton" className='w-10' />
-      <img src="assets/inactiveRightButton.svg" alt="RightButton" className='w-10' />
+    <div className='flex items-center justify-between w-32'>
+      <img src="assets/inactiveLeftButton.svg" alt="LeftButton" className='w-[34px]' />
+      <img src="assets/inactiveRightButton.svg" alt="RightButton" className='w-[34px]' />
+    </div>
     </div>
     </div>
   )
