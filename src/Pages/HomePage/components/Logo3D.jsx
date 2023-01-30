@@ -20,13 +20,13 @@ export function Logo3D({page,isRotatingLeft,isRotatingRight,setIsRotatingLeft,se
         if(isRotatingLeft ||isRotatingRight){
           if (isRotatingLeft == true) {
             refMesh.current.rotation.z += 0.1;
-            if (refMesh.current.rotation.z > (-6.3*page)){
+            if (refMesh.current.rotation.z > (6.3*page)){
               setIsRotatingLeft(false);
             }
           }
           if (isRotatingRight == true) {
-            refMesh.current.rotation.z = refMesh.current.rotation.z - 0.1;
-            if (refMesh.current.rotation.z < (-6.3*(page))){
+            refMesh.current.rotation.z -=  0.1;
+            if (refMesh.current.rotation.z < (6.3*page)){
              setIsRotatingRight(false);
             }
           }
