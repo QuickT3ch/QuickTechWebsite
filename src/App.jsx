@@ -5,11 +5,43 @@ import { useEffect,useState ,useRef} from 'react';
 // test
 
 function App() {
- const [page,setPage]= useState(1);
- const [isRotatingLeft, setIsRotatingLeft] = useState(false)
-const [isRotatingRight, setIsRotatingRight] = useState(false)
- const [touchStart, setTouchStart] = useState(null)
+const [page,setPage]= useState(0);
+
+// slide left and right gestures vars
+const [touchStart, setTouchStart] = useState(null)
 const [touchEnd, setTouchEnd] = useState(null)
+
+// rotaion of the gestures
+const [isRotatingLeft, setIsRotatingLeft] = useState(false)
+const [isRotatingRight, setIsRotatingRight] = useState(false)
+
+// next page or previous page
+const pageRoute = (option) => {
+
+  if (page !=0 && page !=3) {
+    if (option == "next") {
+      setPage(page+1);
+      setIsRotatingRight(true);
+    }else if (option == "prev") {
+      setPage(page-1);
+      setIsRotatingLeft(true);
+    }else{
+      throw new Error("invalid option");
+    }
+  }else if (page == 0) {
+    if (option == "next") {
+      setPage(page+1);
+      setIsRotatingRight(true);
+    }
+  }else if (page == 3){
+    if (option == "prev") {
+      setPage(page-1);
+      setIsRotatingLeft(true);
+    }
+  }
+  console.log(page);
+  }
+
 
 // the required distance between touchStart and touchEnd to be detected as a swipe
 const minSwipeDistance = 50 
@@ -27,9 +59,9 @@ const onTouchEnd = () => {
   const isLeftSwipe = distance > minSwipeDistance
   const isRightSwipe = distance < -minSwipeDistance
   if (isLeftSwipe) {
-console.log('leftSwip');
+    pageRoute("prev");
   }else if (isRightSwipe) {
-    console.log('rightSwip');
+    pageRoute("next");
   }
   // add your conditional logic here
 }
@@ -40,6 +72,7 @@ console.log('leftSwip');
     <div>
     <img src="assets/TitleLogo.svg" alt=""  />
     </div>
+
 
     {/* 3d model  and description*/}
     <div className='absolute m-auto left-0 right-0 bottom-0 top-0 '>
@@ -55,7 +88,7 @@ console.log('leftSwip');
       <div className='h-2/4 w-screen '>
         <Canvas>
         <pointLight castShadow intensity={5} position={[1, 20, 1]} />
-        <Logo3D animation={[isRotatingLeft,setIsRotatingLeft,isRotatingRight,setIsRotatingRight]}/>
+        <Logo3D page={page} isRotatingLeft={isRotatingLeft} isRotatingRight={isRotatingRight} setIsRotatingLeft={setIsRotatingLeft} setIsRotatingRight={setIsRotatingRight}/>
         <ambientLight shadow={true}/>
         </Canvas>
       </div>
@@ -76,13 +109,23 @@ console.log('leftSwip');
        </p>
     </div>
     <div className='flex items-center justify-between w-32'>
+
+      {page == 0? 
+        <img src="assets/inactiveLeftButton.svg" alt="LeftButton" className='w-[34px]' />
+      :
       <img onClick={()=>{
-        setIsRotatingLeft(!isRotatingLeft);
-      }} src="assets/inactiveLeftButton.svg" alt="LeftButton" className='w-[34px]' />
+        pageRoute("prev");
+      }} src="assets/activeLeftButton.svg" alt="LeftButton" className='w-[34px]' />
+      }
      
+     {page == 3?
+      <img src="assets/inactiveRightButton.svg" alt="RightButton" className='w-[34px]' />
+      :
       <img onClick={()=>{
-        setIsRotatingRight(!isRotatingRight);
-      }}src="assets/inactiveRightButton.svg" alt="RightButton" className='w-[34px]' />
+        pageRoute("next");
+      }}src="assets/activeRightButton.svg" alt="RightButton" className='w-[34px]' />
+      }
+      
     </div>
     </div>
     </div>

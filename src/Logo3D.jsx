@@ -1,30 +1,34 @@
 
-import React, {  useEffect, useRef } from 'react'
+import React, {  useEffect,useState, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame  } from '@react-three/fiber';
 
 
-export function Logo3D(props) {
+export function Logo3D({page,isRotatingLeft,isRotatingRight,setIsRotatingLeft,setIsRotatingRight}) {
 
   const refMesh = useRef();
 
   const { nodes, materials } = useGLTF('assets/3d/logo.glb')
 
-  useEffect(() =>{},[props.animation[0],props.animation[2]]);
+
+  
+  
+  useEffect(() =>{},[isRotatingLeft,isRotatingRight]);
 
     useFrame(() => {
-
       if(refMesh.current) {
-        console.log(refMesh.current.rotation.z);
-        if(props.animation[0] ||props.animation[2]){
-          if (props.animation[0]== true) {
+        if(isRotatingLeft ||isRotatingRight){
+          if (isRotatingLeft == true) {
             refMesh.current.rotation.z += 0.1;
-            if (refMesh.current.rotation.z > (6.3*(1))){
-              props.animation[1](false);
+            if (refMesh.current.rotation.z > (-6.3*page)){
+              setIsRotatingLeft(false);
             }
           }
-          if (props.animation[2] == true) {
-            refMesh.current.rotation.z = refMesh.current.rotation.z - 0.01;
+          if (isRotatingRight == true) {
+            refMesh.current.rotation.z = refMesh.current.rotation.z - 0.1;
+            if (refMesh.current.rotation.z < (-6.3*(page))){
+             setIsRotatingRight(false);
+            }
           }
         }else{
           if(refMesh.current.rotation.x < 1.5) {
@@ -33,17 +37,14 @@ export function Logo3D(props) {
           if(refMesh.current.rotation.y < 0){
             refMesh.current.rotation.y += 0.01;
           }
-          if(refMesh.current.rotation.z < 0){
-            refMesh.current.rotation.z += 0.01;
-          }
         }
       }
     });
 
-    
+
   return (
     <group castShadow  dispose={null}>
-      <group  ref={refMesh} position={[0, 0, 0]} rotation={[0, -1, -1]} scale={[35, 35, 35]}>
+      <group  ref={refMesh} position={[0, 0, 0]} rotation={[0, -1, 0]} scale={[35, 35, 35]}>
         <mesh geometry={nodes.Curve001_1.geometry} material={materials['SVGMat.003']} />
         <mesh geometry={nodes.Curve001_2.geometry} material={materials['SVGMat.003']} />
         <mesh geometry={nodes.Curve001_3.geometry} material={materials['SVGMat.003']} />
@@ -55,5 +56,6 @@ export function Logo3D(props) {
   )
   
 }
+
 
 useGLTF.preload('/logo-transformed.glb')
