@@ -3,6 +3,7 @@ import {Logo3D} from "./components/Logo3D";
 import { useEffect,useState ,useRef} from 'react';
 import {Detail} from "./components/Detail";
 import {ButtonNavigation} from "./components/ButtonNavigation";
+import Menu from './components/Menu';
 function App() {
   
 function enableScroll() {
@@ -68,6 +69,12 @@ const onTouchEnd = () => {
     <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className='h-screen w-screen bg-repeat bg-[#040A18] bg-auto bg-[url("assets/lines.svg")] overflow-y-clip'>
     
     {/* navBar */}
+
+    <div>
+      <Menu />
+    </div>
+
+
     <div>
     <img src="assets/TitleLogo.svg" alt=""  />
     </div>
